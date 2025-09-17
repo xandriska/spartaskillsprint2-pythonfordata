@@ -1,4 +1,5 @@
 import math
+import csv
 
 # functions - reusable blocks of code
 
@@ -145,6 +146,65 @@ print(odds)
 ## used in combination with a function (eg. lambda) on an iterable, reduces a collection of elements into
 ## a singular value. it does this by performing a function on item a & b, then result & c, then result & d,
 ## and so on until all elements have been used and a final value is returned.
+
+
+## working with .csv files
+
+# comma separated
+
+## reading
+#
+# rows = []
+#
+# with open('employees.csv', newline='') as csvfile:
+#
+#     csvreader = csv.reader(csvfile)
+#     header = next(csvreader)
+#     for row in csvreader:
+#         rows.append(row)
+#
+#
+#     print(rows)
+
+## writing
+
+# header = ['name', 'age']
+#
+# data = [['minnie', '12'], ['elaine', '78'], ['will', '50']]
+#
+# with open('ppl.csv', 'w', newline='') as csvfile:
+#
+#     csvwriter = csv.writer(csvfile)
+#     csvwriter.writerow(header)
+#     csvwriter.writerows(data)
+
+
+# csv.DictReader()
+
+with open('employees.csv', 'r', newline='') as csvfile:
+
+    reader = csv.DictReader(csvfile)
+
+    for row in reader:
+        print(row['Name'], row['email'])
+        print(row)
+
+
+# csv.DictWriter
+
+headers = ['name', 'age']
+
+data = [['minnie', '12'], ['elaine', '78'], ['will', '50']]
+
+with open('ppl.csv', 'w', newline='') as csvfile:
+
+    writer = csv.DictWriter(csvfile, fieldnames=headers)
+
+    writer.writeheader()
+    for person in data:
+        writer.writerow({'name': person[0], 'age': person[1]})
+
+
 
 
 
